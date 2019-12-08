@@ -24,7 +24,34 @@ function eventImageSetup() {
   dropbox.addEventListener("drop", drop, false);
 
 } // end of eventImageSetup
-
+function uploadRe($files) {
+    console.log($files);
+    // Begin file upload
+    console.log("Uploading file to put.re..");
+  
+    // API Endpoint
+    var apiUrl = "https://api.put.re/upload";
+  
+    var settings = {
+      async: false,
+      crossDomain: true,
+      processData: false,
+      contentType: false,
+      type: "POST",
+      url: apiUrl,
+      mimeType: "multipart/form-data"
+    };
+  
+    var formData = new FormData();
+    formData.append("image", $files);
+    settings.data = formData;
+  
+  
+    $.ajax(settings).done(function(response) {
+      var data = JSON.parse(response);
+      console.log(data);
+    });
+  }
 
 function dragenter(e) {
   e.stopPropagation();
@@ -49,6 +76,7 @@ function handleFiles(files) {
 
   var file = files[0];
 
+  uploadRe(file);
   //console.log("This is the file: ", file);
 
   var imageType = /^image\//;
@@ -72,6 +100,7 @@ function handleFiles(files) {
   var reader = new FileReader();
   reader.onload = function(e) {
     img.src = e.target.result;
+    img.height = "150";
   }
   reader.readAsDataURL(file);
 }

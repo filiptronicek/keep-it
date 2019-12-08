@@ -3,7 +3,14 @@ body {
   color: #f4f4f4;
 }
 #dropbox {
+  display: flex;
+  justify-content: center;
   border: 2px dashed;
-  height: 100px;
-  width: 230px;
+  height: 20vh;
+  width: 30vw;
+  margin-right: auto;
+  margin-left: auto;
+}
+.main-heading {
+  font-size: 15vmin;
 }
