@@ -1,0 +1,15 @@
+{
+  "name": "keep-it",
+  "version": "0.0.1",
+  "description": "A simple file sharing service for photos and documents",
+  "main": "index.js",
+  "author": "Filip Troníček <filip.tronicek@seznam.cz>",
+  "license": "MIT",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "nodemon": "^2.0.1"
+  }
+}
