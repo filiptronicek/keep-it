@@ -1,4 +1,11 @@
 body {
-  color: blue;
+  background: #3a3535;
+  color: #f4f4f4;
+}
+
+#dropbox {
+  border: 2px dashed;
+  height: 100px;
+  width: 230px;
 }
 /*# sourceMappingURL=index.css.map */

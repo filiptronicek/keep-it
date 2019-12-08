@@ -7,6 +7,7 @@ var app = express();
 
 var port = 4000;
 
+app.use(express.static(__dirname + '/src'));
 app.get("/", function(req, res) {
   console.log("Rendered /src/index.html");
   res.sendFile(path.join(__dirname + "/src/index.html"));

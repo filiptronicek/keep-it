@@ -1,13 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="css/index.css">
-    <title>Hello World</title>
-</head>
-<body>
-    I hate Node.js but here I am
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+    <link rel="stylesheet" href="./css/index.css" />
+    <title>keep it app
+    </title>
+  </head>
+  <body class="center">
+    Keep it App
+    <input name="image" type="file" id="image" accept="image/*" style="display:none" onchange="handleFiles(this.files)">
+
+    <div id="imageBorder">
+      <div id="imageContainer">
+    
+        <div id="dropbox">
+          <i class="fa fa-picture-o" aria-hidden="true"></i>
+          <p> Drop image here or click to upload</p>
+        </div>
+    
+        <div id="preview" class="hidden">
+        </div>
+    
+        <button id="fileSelect" type="button" class="btn btn-primary btn-block">Upload Image</button>
+        <button id="fileRemove" type="button" class="btn btn-primary btn-block">Remove Image</button>
+    
+      </div>
+  </body>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script src="./js/index.js"></script>
 </html>
