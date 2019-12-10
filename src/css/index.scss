@@ -2,15 +2,29 @@ body {
   background: #3a3535;
   color: #f4f4f4;
 }
+$breakpoint-tablet: 768px;
+
 #dropbox {
   display: flex;
   justify-content: center;
   border: 2px dashed;
   height: 20vh;
-  width: 50vw;
+  width: 50vmax;
   margin-right: auto;
   margin-left: auto;
 }
 .main-heading {
-  font-size: 15vmin;
+  font-size: 8rem;
+}
+.btn {
+  display: none !important;
+}
+label {
+  font-size: 2rem;
+}
+@media (max-width: $breakpoint-tablet) {
+  #dropbox {
+    height: 20vh;
+    width: 100vw;
+  }
 }

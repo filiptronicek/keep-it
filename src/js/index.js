@@ -13,7 +13,6 @@ function eventImageSetup() {
       $('#preview').empty();
       $('#dropbox').removeClass('hidden');
       $('#preview').addClass('hidden');
-      $('#fileSelect').text('Upload Image');
       resetFileInputField();
     }
     removeError($('#imageError'), $('#image'));
@@ -82,7 +81,6 @@ function handleFiles(files) {
   var imageType = /^image\//;
   if (!imageType.test(file.type)) {
     // a bunch of code to deal with this...
-    return;
   }
   if (file.size > MAX_FILE_SIZE) {
     // a bunch of code to deal with this..
@@ -96,12 +94,11 @@ function handleFiles(files) {
   $('#preview').removeClass('hidden');
   $('#preview').empty();
   $('#preview').append(img);
-  $('#fileSelect').text('Replace Image');
   var reader = new FileReader();
   reader.onload = function(e) {
     img.src = e.target.result;
     img.height = "150";
-  }
+  };
   reader.readAsDataURL(file);
 }
 
