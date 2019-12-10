@@ -90,7 +90,8 @@ function drop(e) {
 }
 
 function handleFiles(files) {
-  var width = 0;
+
+  $(".w3-container").show();
 
   $.each(files, function (index, value) {
     $("#toCount").text(files.length);

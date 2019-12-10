@@ -9,6 +9,10 @@ body {
   margin-left: auto;
 }
 
+.w3-container {
+  display: none;
+}
+
 #dropbox {
   display: -webkit-box;
   display: -ms-flexbox;
