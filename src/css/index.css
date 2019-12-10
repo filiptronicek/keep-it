@@ -3,6 +3,12 @@ body {
   color: #f4f4f4;
 }
 
+.progress {
+  width: 50vw;
+  margin-right: auto;
+  margin-left: auto;
+}
+
 #dropbox {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -32,6 +38,9 @@ label {
 @media (max-width: 768px) {
   #dropbox {
     height: 20vh;
+    width: 100vw;
+  }
+  .w3-light-grey {
     width: 100vw;
   }
 }

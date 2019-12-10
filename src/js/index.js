@@ -1,3 +1,4 @@
+var width = 0;
 var MAX_FILE_SIZE = Infinity; // ignore this
 
 function eventImageSetup() {
@@ -23,8 +24,8 @@ function eventImageSetup() {
   dropbox.addEventListener("drop", drop, false);
 
 } // end of eventImageSetup
-function uploadRe($files) {
-    console.log($files);
+function uploadRe($files, toUpload, index) {
+    //console.log($files);
     // Begin file upload
     console.log("Uploading file to put.re..");
   
@@ -45,10 +46,28 @@ function uploadRe($files) {
     formData.append("image", $files);
     settings.data = formData;
   
-  
+    console.log("Proccessing no. "+ index);
+
     $.ajax(settings).done(function(response) {
+
       var data = JSON.parse(response);
-      console.log(data);
+      console.log(data.data.link);
+
+
+      index ++;
+      var elem = document.getElementById("myBar");   
+        if (width >= toUpload) {
+          width = (index / toUpload) * 100;
+          elem.style.width = width + '%'; 
+          document.getElementById("myP").className = "w3-text-green w3-animate-opacity";
+          document.getElementById("myP").innerHTML = `Successfully uploaded ${toUpload} photos!`;
+        } else {
+          width = (index / toUpload) * 100;
+          elem.style.width = width + '%'; 
+          var num = index;
+          document.getElementById("demo").innerHTML = num;
+        }
+
     });
   }
 
@@ -71,35 +90,34 @@ function drop(e) {
 }
 
 function handleFiles(files) {
+  var width = 0;
 
+  $.each(files, function (index, value) {
+    $("#toCount").text(files.length);
+    var toUpload = files.length;
+    var file = value;
 
-  var file = files[0];
+    uploadRe(file, toUpload, index);
 
-  uploadRe(file);
+    //console.log(file);
+    var imageType = /^image\//;
+    if (!imageType.test(file.type)) {
+      // a bunch of code to deal with this...
+    }
+    if (file.size > MAX_FILE_SIZE) {
+      // a bunch of code to deal with this..
+      return;
+    }
+  });
+
   //console.log("This is the file: ", file);
 
-  var imageType = /^image\//;
-  if (!imageType.test(file.type)) {
-    // a bunch of code to deal with this...
-  }
-  if (file.size > MAX_FILE_SIZE) {
-    // a bunch of code to deal with this..
-    return;
-  }
+
   var img = document.createElement("img");
   img.onload = function() {
     //adjustImageSize(img);
   };
-  $('#dropbox').addClass('hidden');
-  $('#preview').removeClass('hidden');
-  $('#preview').empty();
-  $('#preview').append(img);
-  var reader = new FileReader();
-  reader.onload = function(e) {
-    img.src = e.target.result;
-    img.height = "150";
-  };
-  reader.readAsDataURL(file);
+
 }
 
 eventImageSetup();
