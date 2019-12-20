@@ -52,9 +52,11 @@ function uploadRe($files, toUpload, index) {
 
       var data = JSON.parse(response);
       console.log(data.data.link);
+      document.getElementById("images").innerHTML += `<img src="${data.data.link}"> <br>"`;
 
 
       index ++;
+
       var elem = document.getElementById("myBar");   
         if (width >= toUpload) {
           width = (index / toUpload) * 100;
