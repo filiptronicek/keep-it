@@ -1,77 +1,113 @@
 var width = 0;
 var MAX_FILE_SIZE = Infinity; // ignore this
 
+function getBaseUrl() {
+  return window.location.href.match(/^.*\//);
+}
+
+document.getElementById(
+  "urlOutPut"
+).innerHTML = `${getBaseUrl()}?i=`;
+
 function eventImageSetup() {
+  $(dropbox).height($("#imageBorder").height());
 
-  $(dropbox).height($('#imageBorder').height());
+  fileSelect.addEventListener(
+    "click",
+    function() {
+      image.click();
+    },
+    false
+  );
 
-  fileSelect.addEventListener("click", function() {
-    image.click();
-  }, false);
-
-  fileRemove.addEventListener("click", function() {
-    if (!$('#preview').hasClass('hidden')) { // If there is an image uploaded
-      $('#preview').empty();
-      $('#dropbox').removeClass('hidden');
-      $('#preview').addClass('hidden');
-      resetFileInputField();
-    }
-    removeError($('#imageError'), $('#image'));
-  }, false);
+  fileRemove.addEventListener(
+    "click",
+    function() {
+      if (!$("#preview").hasClass("hidden")) {
+        // If there is an image uploaded
+        $("#preview").empty();
+        $("#dropbox").removeClass("hidden");
+        $("#preview").addClass("hidden");
+        resetFileInputField();
+      }
+      removeError($("#imageError"), $("#image"));
+    },
+    false
+  );
 
   dropbox.addEventListener("dragenter", dragenter, false);
   dropbox.addEventListener("dragover", dragover, false);
   dropbox.addEventListener("drop", drop, false);
-
 } // end of eventImageSetup
 function uploadRe($files, toUpload, index) {
-    //console.log($files);
-    // Begin file upload
-    console.log("Uploading file to put.re..");
-  
-    // API Endpoint
-    var apiUrl = "https://api.put.re/upload";
-  
-    var settings = {
-      async: false,
-      crossDomain: true,
-      processData: false,
-      contentType: false,
-      type: "POST",
-      url: apiUrl,
-      mimeType: "multipart/form-data"
-    };
-  
-    var formData = new FormData();
-    formData.append("image", $files);
-    settings.data = formData;
-  
-    console.log("Proccessing no. "+ index);
+  //console.log($files);
+  // Begin file upload
+  console.log("Uploading file to put.re..");
 
-    $.ajax(settings).done(function(response) {
+  // API Endpoint
+  var apiUrl = "https://api.put.re/upload";
 
-      var data = JSON.parse(response);
-      console.log(data.data.link);
-      document.getElementById("images").innerHTML += `<img src="${data.data.link}"> <br>"`;
+  var settings = {
+    async: false,
+    crossDomain: true,
+    processData: false,
+    contentType: false,
+    type: "POST",
+    url: apiUrl,
+    mimeType: "multipart/form-data"
+  };
+
+  var formData = new FormData();
+  formData.append("image", $files);
+  settings.data = formData;
+
+  console.log("Proccessing no. " + index);
+
+  $.ajax(settings).done(function(response) {
+    var data = JSON.parse(response);
+    console.log(data.data.link);
+    document.getElementById(
+      "images"
+    ).innerHTML += `<img width="30%" src="${data.data.link}"> <br>`;
 
 
-      index ++;
 
-      var elem = document.getElementById("myBar");   
-        if (width >= toUpload) {
-          width = (index / toUpload) * 100;
-          elem.style.width = width + '%'; 
-          document.getElementById("myP").className = "w3-text-green w3-animate-opacity";
-          document.getElementById("myP").innerHTML = `Successfully uploaded ${toUpload} photos!`;
-        } else {
-          width = (index / toUpload) * 100;
-          elem.style.width = width + '%'; 
-          var num = index;
-          document.getElementById("demo").innerHTML = num;
-        }
-
+    let urlStr =  `${btoa(data.data.name)}`;
+    if(index == 0) {
+      document.getElementById(
+        "urlOutPut"
+      ).innerHTML += urlStr;
+    } else {
+      document.getElementById(
+        "urlOutPut"
+      ).innerHTML += `&`+urlStr;
+    }
+    $.post("https://chl.li/api/shorten", {
+      url: document.getElementById("urlOutPut").innerHTML
+    }, function(
+      data
+    ) {
+      alert(data);
     });
-  }
+    index++;
+
+    var elem = document.getElementById("myBar");
+    if (width >= toUpload) {
+      width = (index / toUpload) * 100;
+      elem.style.width = width + "%";
+      document.getElementById("myP").className =
+        "w3-text-green w3-animate-opacity";
+      document.getElementById(
+        "myP"
+      ).innerHTML = `Successfully uploaded ${toUpload} photos!`;
+    } else {
+      width = (index / toUpload) * 100;
+      elem.style.width = width + "%";
+      var num = index;
+      document.getElementById("demo").innerHTML = num;
+    }
+  });
+}
 
 function dragenter(e) {
   e.stopPropagation();
@@ -92,10 +128,9 @@ function drop(e) {
 }
 
 function handleFiles(files) {
-
   $(".w3-container").show();
 
-  $.each(files, function (index, value) {
+  $.each(files, function(index, value) {
     $("#toCount").text(files.length);
     var toUpload = files.length;
     var file = value;
@@ -115,12 +150,10 @@ function handleFiles(files) {
 
   //console.log("This is the file: ", file);
 
-
   var img = document.createElement("img");
   img.onload = function() {
     //adjustImageSize(img);
   };
-
 }
 
 eventImageSetup();
