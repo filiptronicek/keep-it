@@ -13,12 +13,12 @@ $.each(photosDecodedArray, function(index, value) {
   realIndex = index + 1;
   $("body").append(
     `<div class="lightbox" id="lightbox-${realIndex}">
-    <div class="content"><img src="https://iq.now.sh/s//${value}"/>
+    <div class="content"><img loading="lazy" src="https://iq.now.sh/s//${value}"/>
       <a class="close" href="#gallery"></a>
     </div>
   </div>`
   );
   $("#gallery").append(
-    `<div><img src="https://iq.now.sh/s//${value}"/><a href="#lightbox-${realIndex}"></a></div>`
+    `<div><img loading="lazy" src="https://iq.now.sh/s//${value}"/><a href="#lightbox-${realIndex}"></a></div>`
   );
 });
