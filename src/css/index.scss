@@ -23,7 +23,8 @@ $breakpoint-tablet: 768px;
   margin-left: auto;
 }
 .main-heading {
-  font-size: 8rem;
+  margin-bottom: 0px;
+  font-size: 6rem;
 }
 .btn {
   display: none !important;
@@ -40,3 +41,10 @@ label {
     width: 100vw;
   }
 }
+#urlOutPut {
+  display: none;
+}
+.desc {
+  font-size: 3.5rem;
+  font-weight: 200;
+}  

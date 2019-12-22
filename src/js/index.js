@@ -68,7 +68,7 @@ function uploadRe($files, toUpload, index) {
     console.log(data.data.link);
     document.getElementById(
       "images"
-    ).innerHTML += `<img width="30%" src="${data.data.link}"> <br>`;
+    ).innerHTML += `<img height="400px" src="${data.data.link}"> `;
 
 
 
@@ -135,12 +135,13 @@ function handleFiles(files) {
     var toUpload = files.length;
     var file = value;
 
-    uploadRe(file, toUpload, index);
 
     //console.log(file);
     var imageType = /^image\//;
     if (!imageType.test(file.type)) {
-      // a bunch of code to deal with this...
+      alert("This file type is not supported");
+    } else {
+      uploadRe(file, toUpload, index);
     }
     if (file.size > MAX_FILE_SIZE) {
       // a bunch of code to deal with this..
