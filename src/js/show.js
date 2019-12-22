@@ -9,16 +9,16 @@ $.each(photosEncodedArray, function(index, value) {
   console.log(atob(value));
 });
 $.each(photosDecodedArray, function(index, value) {
-  //$("#images").append(`<img src="https://s.put.re/${value}" loading="lazy" width="50%"><br>`);
+  //$("#images").append(`<img src="https://iq.now.sh/s//${value}" loading="lazy" width="50%"><br>`);
   realIndex = index + 1;
   $("body").append(
     `<div class="lightbox" id="lightbox-${realIndex}">
-    <div class="content"><img src="https://s.put.re/${value}"/>
+    <div class="content"><img src="https://iq.now.sh/s//${value}"/>
       <a class="close" href="#gallery"></a>
     </div>
   </div>`
   );
   $("#gallery").append(
-    `<div><img src="https://s.put.re/${value}"/><a href="#lightbox-${realIndex}"></a></div>`
+    `<div><img src="https://iq.now.sh/s//${value}"/><a href="#lightbox-${realIndex}"></a></div>`
   );
 });
