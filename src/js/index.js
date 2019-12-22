@@ -7,7 +7,7 @@ function getBaseUrl() {
 
 document.getElementById(
   "urlOutPut"
-).innerHTML = `${getBaseUrl()}?i=`;
+).innerHTML = `${getBaseUrl()}i?g=`;
 
 function eventImageSetup() {
   $(dropbox).height($("#imageBorder").height());
@@ -80,7 +80,7 @@ function uploadRe($files, toUpload, index) {
     } else {
       document.getElementById(
         "urlOutPut"
-      ).innerHTML += `&`+urlStr;
+      ).innerHTML += `$`+urlStr;
     }
     $.post("https://chl.li/api/shorten", {
       url: document.getElementById("urlOutPut").innerHTML
