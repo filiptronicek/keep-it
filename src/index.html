@@ -41,8 +41,8 @@
       
       </div>
     
-        <button id="fileSelect" type="button" class="btn btn-primary btn-block">Upload Image</button>
-        <button id="fileRemove" type="button" class="btn btn-primary btn-block">Remove Image</button>
+        <button id="fileSelect" type="button">Upload Image</button>
+        <button id="fileRemove" type="button">Remove Image</button>
     
       </div>
       <br>
@@ -54,6 +54,9 @@
       </form>
       <div id="images"></div>
       <p id="urlOutPut"></p>
+      <div id="copyBtn" style="display: none;" class="btn red copy" onclick="fallbackCopyTextToClipboard(document.getElementById('urlOutPut').innerHTML)">
+        Copy URL
+      </div>
   </body>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>

@@ -1,5 +1,44 @@
-var width = 0;
-var MAX_FILE_SIZE = Infinity; // ignore this
+let width = 0;
+let MAX_FILE_SIZE = Infinity; // ignore this
+
+const copyText = document.getElementById("urlOutPut").innerHTML;
+
+
+function fallbackCopyTextToClipboard(text) {
+  var textArea = document.createElement("textarea");
+  textArea.value = text;
+  textArea.style.position = "fixed"; //avoid scrolling to bottom
+  document.body.appendChild(textArea);
+  textArea.focus();
+  textArea.select();
+
+  try {
+    var successful = document.execCommand("copy");
+    var msg = successful ? "successful" : "unsuccessful";
+    console.log(`Fallback: Copying text command was ${msg}`);
+  } catch (err) {
+    console.error(`Fallback: Oops, unable to copy ${err}`);
+  }
+
+  document.body.removeChild(textArea);
+}
+function copyTextToClipboard(text) {
+  if (!navigator.clipboard) {
+    fallbackCopyTextToClipboard(text);
+    return;
+  }
+  navigator.clipboard.writeText(text).then(
+    function() {
+      console.log("Async: Copying to clipboard was successful!");
+
+    },
+    function(err) {
+      console.error(`Async: Could not copy text: ${err}`);
+
+    }
+  );
+}
+
 
 function getBaseUrl() {
   return window.location.href.match(/^.*\//);
@@ -45,9 +84,9 @@ function uploadRe($files, toUpload, index) {
   console.log("Uploading file to put.re..");
 
   // API Endpoint
-  var apiUrl = "https://api.put.re/upload";
+  let apiUrl = "https://api.put.re/upload";
 
-  var settings = {
+  let settings = {
     async: false,
     crossDomain: true,
     processData: false,
@@ -57,14 +96,14 @@ function uploadRe($files, toUpload, index) {
     mimeType: "multipart/form-data"
   };
 
-  var formData = new FormData();
+  let formData = new FormData();
   formData.append("image", $files);
   settings.data = formData;
 
   console.log("Proccessing no. " + index);
 
   $.ajax(settings).done(function(response) {
-    var data = JSON.parse(response);
+    let data = JSON.parse(response);
     console.log(data.data.link);
     document.getElementById(
       "images"
@@ -82,6 +121,7 @@ function uploadRe($files, toUpload, index) {
         "urlOutPut"
       ).innerHTML += `$`+urlStr;
     }
+    /*
     $.post("https://chl.li/api/shorten", {
       url: document.getElementById("urlOutPut").innerHTML
     }, function(
@@ -89,9 +129,10 @@ function uploadRe($files, toUpload, index) {
     ) {
       alert(data);
     });
+    */
     index++;
 
-    var elem = document.getElementById("myBar");
+    let elem = document.getElementById("myBar");
     if (width >= toUpload) {
       width = (index / toUpload) * 100;
       elem.style.width = width + "%";
@@ -103,10 +144,11 @@ function uploadRe($files, toUpload, index) {
     } else {
       width = (index / toUpload) * 100;
       elem.style.width = width + "%";
-      var num = index;
+      let num = index;
       document.getElementById("demo").innerHTML = num;
     }
   });
+  $("#copyBtn").show();
 }
 
 function dragenter(e) {
@@ -122,8 +164,8 @@ function dragover(e) {
 function drop(e) {
   e.stopPropagation();
   e.preventDefault();
-  var dt = e.dataTransfer;
-  var files = dt.files;
+  let dt = e.dataTransfer;
+  let files = dt.files;
   handleFiles(files);
 }
 
@@ -132,12 +174,12 @@ function handleFiles(files) {
 
   $.each(files, function(index, value) {
     $("#toCount").text(files.length);
-    var toUpload = files.length;
-    var file = value;
+    let toUpload = files.length;
+    let file = value;
 
 
     //console.log(file);
-    var imageType = /^image\//;
+    let imageType = /^image\//;
     if (!imageType.test(file.type)) {
       alert("This file type is not supported");
     } else {
@@ -151,7 +193,7 @@ function handleFiles(files) {
 
   //console.log("This is the file: ", file);
 
-  var img = document.createElement("img");
+  let img = document.createElement("img");
   img.onload = function() {
     //adjustImageSize(img);
   };
